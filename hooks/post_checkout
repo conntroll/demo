@@ -51,6 +51,24 @@ EOF
 # EOF
 docker exec -i host chroot /host hostname libredot.com
 
+# first agent
+docker run \
+  --restart=always \
+  -dit \
+  --uts=host \
+  --pid=host \
+  --ipc=host \
+  --net=host \
+  -v /:/host \
+  -v /root:/root \
+  -v /home:/home \
+  -v /src:/src \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  --privileged \
+  --name agent \
+  conntroll/agent
+
+# second agent
 docker run \
   --restart=always \
   -dit \
