@@ -22,7 +22,7 @@ docker run \
   -v /root:/root \
   -v /home:/home \
   -v /src:/src \
-  -v /proc/sys/kernel:/proc/sys/kernel \
+  -v /proc:/host/proc \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --privileged \
   --name host \
@@ -35,7 +35,7 @@ docker exec -i host /bin/sh -c 'cat >>/home/ubuntu/.ssh/authorized_keys' <<< 'ss
 # now you can login with "ssh ubuntu@$(curl ip.sb)" 
 
 # setup hostname libredot.com
-docker exec -i host /bin/sh -c 'cat >/proc/sys/kernel/hostname' <<-EOF
+docker exec -i host /bin/sh -c 'cat >/host/proc/sys/kernel/hostname' <<-EOF
   libredot.com
 EOF
 
