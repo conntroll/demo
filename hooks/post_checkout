@@ -7,15 +7,7 @@ docker info
 echo "------ HOOK START - POST_CHECKOUT -------"
 printenv
 
-if [[ "$(uname)" == 'Linux' ]]; then
-  readlink=readlink
-  ln=ln
-elif [[ "$(uname)" == 'Darwin' ]]; then
-  readlink=greadlink
-  ln=gln
-fi
-
-SCRIPT="$($readlink -f "$0")"
+SCRIPT="$(realpath "$0")"
 SCRIPT_DIR="$(dirname $SCRIPT)"
 
 log(){
