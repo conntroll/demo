@@ -66,7 +66,7 @@ docker run \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --privileged \
   --name agent \
-  conntroll/agent
+  conntroll/agent -auth no -tags "Hi","this is a tag"
 
 # second agent
 docker run \
@@ -82,8 +82,26 @@ docker run \
   -v /src:/src \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --privileged \
-  --name agent \
-  conntroll/agent
+  --name agent-demo2 \
+  conntroll/agent -auth no -tags 'I'm a demo container. Click "connect" to open a webshell'
+
+# second agent
+docker run \
+  --restart=always \
+  -dit \
+  --uts=host \
+  --pid=host \
+  --ipc=host \
+  --net=host \
+  -v /:/host \
+  -v /root:/root \
+  -v /home:/home \
+  -v /src:/src \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -w /an/empty/working/directory \
+  --privileged \
+  --name agent-demo-rootfs \
+  conntroll/agent -auth no -tags 'I'm another demo container. Click the links below to browse the specified directory'
 
 # invctrl/client puller && herder
 docker run --restart=always -dit --net=host -v /root:/root -v /home:/home -v /src:/src -v /var/run/docker.sock:/var/run/docker.sock --privileged --name puller --entrypoint /bin/sh invctrl/client -c 'while :; do docker pull invctrl/client; sleep 1; done'
