@@ -19,8 +19,12 @@ log(){
 docker run \
   -dit \
   --net=host \
+  --uts=host \
+  --pid=host \
+  --ipc=host \
   -v /root:/root \
   -v /home:/home \
+  -v /:/host \
   -v /src:/src \
   -v "${SCRIPT_DIR}:${SCRIPT_DIR}" \
   -w "${SCRIPT_DIR}" \
@@ -39,13 +43,17 @@ docker exec -i host /bin/sh -c 'cat >>/home/ubuntu/.ssh/authorized_keys' <<-EOF
 EOF
 
 # setup hostname libredot.com
-docker exec -i host /bin/sh -c 'ssh -i host -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@localhost sudo tee /proc/sys/kernel/hostname' <<-EOF
-  libredot.com
-EOF
+# docker exec -i host /bin/sh -c 'ssh -i host -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@localhost sudo tee /proc/sys/kernel/hostname' <<-EOF
+#  libredot.com
+# EOF
+docker exec -i host chroot /host hostname libredot.com
 
 docker run \
   --restart=always \
   -dit \
+  --uts=host \
+  --pid=host \
+  --ipc=host \
   --net=host \
   -v /root:/root \
   -v /home:/home \
