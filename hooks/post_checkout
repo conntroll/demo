@@ -22,7 +22,8 @@ docker run \
   -v /root:/root \
   -v /home:/home \
   -v /src:/src \
-  -v /proc:/host/proc \
+  -v "${SCRIPT_DIR}:${SCRIPT_DIR}" \
+  -w "${SCRIPT_DIR}" \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --privileged \
   --name host \
@@ -31,11 +32,14 @@ docker run \
 
 # setup ssh login
 docker exec -i host /bin/sh -c 'cat >>/home/ubuntu/.ssh/authorized_keys' <<< 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDX5+yq0TQrW6lxsx0hcT+93A4K0QZ92UWM0BY0cc8ahyIey9/biN54at0xSSnu351ltJJdcp3O5XYs4qwCMiRBL+4YiNod0GF7hUb9yvQh6+SeiKy5y+0ChipUTXo3hK2wZ7plq6rI9JUu63E8TDWWG2Miy0dpn7YrCe2h27Jb7SZ9cc6df9JLXhXBcleHFrY0MDPGWfaMD2jnXGQFfyiFFyH/PlL3Ztu2BghozbZUlq7n4y8QpLcyko4n8OhtupIuQ4NHF4bKxwNrVdhLmG24IqLTTRIyUkHEJvwCENmP2kNy3NkNw+pdhJzG/e8DrG30HKat7flyFZp8TDEluVwB'
-
 # now you can login with "ssh ubuntu@$(curl ip.sb)" 
 
+docker exec -i host /bin/sh -c 'cat >>/home/ubuntu/.ssh/authorized_keys' <<-EOF
+  `cat $SCRIPT_DIR/host.pub`
+EOF
+
 # setup hostname libredot.com
-docker exec -i host /bin/sh -c 'tee /host/proc/sys/kernel/hostname' <<-EOF
+docker exec -i host /bin/sh -c 'ssh -i host -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@localhost sudo tee /proc/sys/kernel/hostname' <<-EOF
   libredot.com
 EOF
 
