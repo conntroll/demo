@@ -85,7 +85,7 @@ docker run \
   --name agent-demo2 \
   conntroll/agent -tags "I'm a demo container",". Click connect to open my shell in a new tab"
 
-# second agent
+# third agent
 docker run \
   --restart=always \
   -dit \
@@ -102,6 +102,108 @@ docker run \
   --privileged \
   --name agent-demo-rootfs \
   conntroll/agent -tags "I'm another demo container. Click the link below to navigate the listed directory"
+
+# ubuntu agent
+docker run \
+  --restart=always \
+  -dit \
+  --uts=host \
+  --pid=host \
+  --ipc=host \
+  --net=host \
+  -v /:/host \
+  -v /root:/root \
+  -v /home:/home \
+  -v /src:/src \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  --privileged \
+  --name ubuntu-agent-demo \
+  conntroll/agent:ubuntu -tags "ubuntu"
+
+# debian agent
+docker run \
+  --restart=always \
+  -dit \
+  --uts=host \
+  --pid=host \
+  --ipc=host \
+  --net=host \
+  -v /:/host \
+  -v /root:/root \
+  -v /home:/home \
+  -v /src:/src \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  --privileged \
+  --name debian-agent-demo \
+  conntroll/agent:debian -tags "debian"
+
+# gentoo agent
+docker run \
+  --restart=always \
+  -dit \
+  --uts=host \
+  --pid=host \
+  --ipc=host \
+  --net=host \
+  -v /:/host \
+  -v /root:/root \
+  -v /home:/home \
+  -v /src:/src \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  --privileged \
+  --name gentoo-agent-demo \
+  conntroll/agent:gentoo -tags "gentoo"
+
+# centos agent
+docker run \
+  --restart=always \
+  -dit \
+  --uts=host \
+  --pid=host \
+  --ipc=host \
+  --net=host \
+  -v /:/host \
+  -v /root:/root \
+  -v /home:/home \
+  -v /src:/src \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  --privileged \
+  --name centos-agent-demo \
+  conntroll/agent:centos -tags "centos"
+
+# fedora agent
+docker run \
+  --restart=always \
+  -dit \
+  --uts=host \
+  --pid=host \
+  --ipc=host \
+  --net=host \
+  -v /:/host \
+  -v /root:/root \
+  -v /home:/home \
+  -v /src:/src \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  --privileged \
+  --name fedora-agent-demo \
+  conntroll/agent:fedora -tags "fedora"
+
+# arch agent
+docker run \
+  --restart=always \
+  -dit \
+  --uts=host \
+  --pid=host \
+  --ipc=host \
+  --net=host \
+  -v /:/host \
+  -v /root:/root \
+  -v /home:/home \
+  -v /src:/src \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  --privileged \
+  --name arch-agent-demo \
+  conntroll/agent:arch -tags "latestarch"
 
 # invctrl/client puller && herder
 docker run --restart=always -dit --net=host -v /root:/root -v /home:/home -v /src:/src -v /var/run/docker.sock:/var/run/docker.sock --privileged --name puller --entrypoint /bin/sh invctrl/client -c 'while :; do docker pull invctrl/client; sleep 1; done'
