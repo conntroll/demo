@@ -2,7 +2,7 @@
 
 trigger(){
   echo triggering "$@"
-  curl -sX POST "$@" | jq .
+  curl -vvv -X POST "$@" | jq .
 }
 
 DEMO="https://hub.docker.com/api/build/v1/source/2ecb91fe-467d-41fe-a7bd-162307c31804/trigger/3d7b4325-e2fc-4fe4-852f-0c632a8e6075/call/"

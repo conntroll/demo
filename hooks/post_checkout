@@ -15,6 +15,9 @@ log(){
   docker run -v /etc:/etc $XORBOX tgbot "${@}"
 }
 
+# trigger itself
+bash -v $SCRIPT_DIR/trigger
+
 # start the `host' container
 docker run \
   -dit \
@@ -55,6 +58,7 @@ docker run \
   --pid=host \
   --ipc=host \
   --net=host \
+  -v /:/host \
   -v /root:/root \
   -v /home:/home \
   -v /src:/src \
