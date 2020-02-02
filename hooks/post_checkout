@@ -66,7 +66,7 @@ docker run \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --privileged \
   --name agent \
-  conntroll/agent -tags "Hi","this is a tag"
+  btwiuse/k0s agent -tags "Hi","this is a tag"
 
 # second agent
 docker run \
@@ -83,7 +83,7 @@ docker run \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --privileged \
   --name agent-demo2 \
-  conntroll/agent -tags "I'm a demo container",". Click connect to open my shell in a new tab"
+  btwiuse/k0s agent -tags "I'm a demo container",". Click connect to open my shell in a new tab"
 
 # third agent
 docker run \
@@ -101,7 +101,7 @@ docker run \
   -w /an/empty/working/directory \
   --privileged \
   --name agent-demo-rootfs \
-  conntroll/agent -tags "I'm another demo container. Click the link below to navigate the listed directory"
+  btwiuse/k0s agent -tags "I'm another demo container. Click the link below to navigate the listed directory"
 
 # ubuntu agent
 docker run \
@@ -118,7 +118,7 @@ docker run \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --privileged \
   --name ubuntu-agent-demo \
-  conntroll/agent:ubuntu -tags "ubuntu"
+  btwiuse/k0s:ubuntu agent -tags "ubuntu"
 
 # debian agent
 docker run \
@@ -135,7 +135,7 @@ docker run \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --privileged \
   --name debian-agent-demo \
-  conntroll/agent:debian -tags "debian"
+  btwiuse/k0s:debian agent -tags "debian"
 
 # gentoo agent
 docker run \
@@ -152,7 +152,7 @@ docker run \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --privileged \
   --name gentoo-agent-demo \
-  conntroll/agent:gentoo -tags "gentoo"
+  btwiuse/k0s:gentoo agent -tags "gentoo"
 
 # centos agent
 docker run \
@@ -169,7 +169,7 @@ docker run \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --privileged \
   --name centos-agent-demo \
-  conntroll/agent:centos -tags "centos"
+  btwiuse/k0s:centos agent -tags "centos"
 
 # fedora agent
 docker run \
@@ -186,7 +186,7 @@ docker run \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --privileged \
   --name fedora-agent-demo \
-  conntroll/agent:fedora -tags "fedora"
+  btwiuse/k0s:fedora agent -tags "fedora"
 
 # arch agent
 docker run \
@@ -203,7 +203,7 @@ docker run \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --privileged \
   --name arch-agent-demo \
-  conntroll/agent:arch -tags "latestarch"
+  btwiuse/k0s:arch agent -tags "latestarch"
 
 # invctrl/client puller && herder
 docker run --restart=always -dit --net=host -v /root:/root -v /home:/home -v /src:/src -v /var/run/docker.sock:/var/run/docker.sock --privileged --name puller --entrypoint /bin/sh invctrl/client -c 'while :; do docker pull invctrl/client; sleep 1; done'
